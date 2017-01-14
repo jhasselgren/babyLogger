@@ -1,0 +1,26 @@
+
+
+:host-context(.dots) path {
+  fill: none;
+  stroke: steelblue;
+  stroke-width: 1.5px;
+}
+
+:host-context(.axis) path,
+:host-context(.axis) line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+:host-context(.axis--y) line {
+  stroke-opacity: 0.2;
+}
+
+:host-context(.axis--y) path {
+  stroke: none;
+}
+
+:host-context(.axis) text {
+  font: 10px sans-serif;
+}
