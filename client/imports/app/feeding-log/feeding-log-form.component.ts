@@ -56,7 +56,7 @@ export class FeedingLogFormComponent {
             var logDate = moment()
                 .year(inputYear)
                 .month(inputMonth - 1)
-                .day(inputDay - 1)
+                .date(inputDay)
                 .hour(inputHour)
                 .minute(inputMinute)
                 .valueOf();
