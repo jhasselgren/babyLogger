@@ -24,7 +24,7 @@ export class FeedingLogFormComponent {
         var date = {
             year: moment().year(),
             month: moment().month() + 1,
-            day: moment().day() + 1
+            day: moment().date()
         };
         var time = {
             hour: moment().hour(),
@@ -63,7 +63,17 @@ export class FeedingLogFormComponent {
 
             FeedingLogs.insert({ time: logDate, owner: Meteor.userId() });
 
-            this.addForm.reset();
+            var date = {
+                year: moment().year(),
+                month: moment().month() + 1,
+                day: moment().date() + 1
+            };
+            var time = {
+                hour: moment().hour(),
+                minute: moment().minute()
+            };
+
+            this.addForm.reset({ date: date, hour: time.hour, minute: time.minute});
         }
 
     }

@@ -1,0 +1,5 @@
+<div class="col-12">
+    <h2>Senaste amningen:</h2>
+<h2 *ngIf="(feddingLog | async)?.hours  > 0">{{( feddingLog | async )?.hours}}h och {{( feddingLog | async )?.minutes}} min</h2>
+<h2 *ngIf="(feddingLog | async)?.hours === 0">{{( feddingLog | async )?.minutes}} min</h2>
+</div>
