@@ -3,22 +3,20 @@
 </nav>
 <div class="container">
     <div class="app">
-        <div class="card">
-            <feeding-log-time-since></feeding-log-time-since>
-        </div>
+        <feeding-log-time-since [feedingLog]="latestLog | async"></feeding-log-time-since>
+        
         <div class="card">
             <div class="card-block">
-                <feeding-log-form></feeding-log-form>
+                <feeding-log-form (add)=addLog($event)></feeding-log-form>
             </div>
         </div>
         <div class="card">
-            <feeding-log-list></feeding-log-list>
+            <feeding-log-list [feddingLogs]="feedingLogs | async" (remove)="removeLog($event)"></feeding-log-list>
         </div>
 
     </div>
     <div class="card">
         <div class="card-block">
-            <p>UserId: {{user}}</p>
         </div>
     </div>
 </div>

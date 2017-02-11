@@ -1,5 +1,11 @@
-<div class="col-12">
-    <h2>Senaste amningen:</h2>
-<h2 *ngIf="(feddingLog | async)?.hours  > 0">{{( feddingLog | async )?.hours}}h och {{( feddingLog | async )?.minutes}} min</h2>
-<h2 *ngIf="(feddingLog | async)?.hours === 0">{{( feddingLog | async )?.minutes}} min</h2>
+<div class="col-4" style="margin-top: 1em; margin-bottom: 1em;">
+    <div class="card">
+        <div class="card-header">
+            <h2>Senaste amningen:</h2>
+        </div>
+        <div class="card-block">
+            <h2 *ngIf="hours  > 0">{{hours}} h {{minutes}} min</h2>
+            <h2 *ngIf="hours === 0">{{minutes}} min</h2>
+        </div>
+    </div>
 </div>
