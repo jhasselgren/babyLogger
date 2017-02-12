@@ -1,8 +1,23 @@
-<div class="col-md-auto">
-    <ul class="list-group">
-        <li class="list-group-item justify-content-between" *ngFor="let feddingLog of feddingLogs ">
-            {{ feddingLog.time | date:"yyyy-MM-dd HH:mm"}}
-            <button type="button" class="btn btn-danger btn-sm" (click)="remove.emit(feddingLog._id)">Remove</button>
-        </li>
-    </ul>
+<div class="col-12" style="margin-top: 1em; margin-bottom: 1em;">
+    <div class="card">
+        <div class="card-block">
+            <google-chart [data]="chartData"></google-chart>
+        </div>
+    </div>
+</div>
+
+<div class="col-12" style="margin-top: 1em; margin-bottom: 1em;">
+    <div class="card">
+        <div class="card-block">
+            <ul class="list-group">
+                <li class="list-group-item justify-content-between" *ngFor="let feddingLog of getFeedingLogs()">
+                    {{ feddingLog.time | date:"yyyy-MM-dd HH:mm"}}
+                    <button type="button" class="btn btn-danger btn-sm" (click)="remove.emit(feddingLog._id)">Remove</button>
+                </li>
+            </ul>
+        </div>
+        <div class="card-footer text-center">
+            <button type="button" class="btn btn-primary btn-sm" (click)="viewMore()">Mer</button>
+        </div>
+    </div>
 </div>

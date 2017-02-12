@@ -11,7 +11,12 @@ import * as feedingLog from './actions/feedingLog'
 import { FeedingLog } from "../../../both/models/feedingLog.model"
 import { FeedingLogsService } from "./services/feeding-logs.service"
 
+import { StringMap } from '../../../both/models/stringMap.model'
+
 import template from "./app.component.html";
+
+import * as moment from 'moment';
+
 
 
 @Component({
@@ -23,21 +28,29 @@ export class AppComponent implements OnDestroy, OnInit {
 
   private feedingLogs: Observable<FeedingLog[]>;
   private latestLog: Observable<FeedingLog>;
+  private numberOfLogsPerDate: Observable<StringMap>;
+
+  
 
   constructor(private feedingLogsService: FeedingLogsService, private store: Store<fromRoot.State>) {
     var result = this.feedingLogsService.loadData();
     this.feedingLogs = this.store.select(fromRoot.getFeedingLogs);
     this.latestLog = this.store.select(fromRoot.getLatestLog);
+    this.numberOfLogsPerDate = this.store.select(fromRoot.getLogsPerDay);
   }
 
-  addLog(log : FeedingLog){
+  addLog(log: FeedingLog) {
     this.store.dispatch(new feedingLog.AddLogAction(log));
   }
 
-  removeLog(id : string){
+  removeLog(id: string) {
     this.store.dispatch(new feedingLog.RemoveLogAction(id));
   }
+
+
+
   
+
   ngOnInit() {
 
   }

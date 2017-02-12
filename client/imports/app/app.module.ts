@@ -3,6 +3,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from "@angular/platform-browser";
 import { RouterModule } from '@angular/router';
 import { AccountsModule } from 'angular2-meteor-accounts-ui';
+import { Ng2GoogleChartsModule } from 'ng2-google-charts';
 
 import { StoreModule } from '@ngrx/store'
 import { EffectsModule } from '@ngrx/effects';
@@ -46,7 +47,8 @@ import { AreaChart } from "./chart/chart.component";
     AccountsModule,
     StoreModule.provideStore(reducer),
     StoreDevtoolsModule.instrumentOnlyWithExtension(),
-    EffectsModule.run(FeedingLogEffects)
+    EffectsModule.run(FeedingLogEffects),
+    Ng2GoogleChartsModule
   ],
   // Main Component
   bootstrap: [ AppComponent ]

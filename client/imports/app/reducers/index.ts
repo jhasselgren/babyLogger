@@ -37,4 +37,5 @@ export const getFeedingLogsState = (state : State) => state.feedingLogs;
 
 export const getFeedingLogs = createSelector(getFeedingLogsState, fromFeedingLogs.getLogs);
 export const getLatestLog = createSelector(getFeedingLogsState, fromFeedingLogs.getLatest);
+export const getLogsPerDay = createSelector(getFeedingLogsState, fromFeedingLogs.getLogsPerDay);
 
