@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, Input, OnInit, OnChanges, SimpleChanges, SimpleChange } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 import { Subscription } from 'rxjs/Subscription';
@@ -15,65 +15,56 @@ import template from './feeding-log-time-since.component.html';
     selector: 'feeding-log-time-since',
     template
 })
-export class FeedingLogTimeSinceComponent implements OnInit, OnDestroy {
-    feddingLogs: Observable<FeedingLog[]>;
-    feddingLog: Observable<any>;
-    feddingLogSub: Subject<any> = new Subject();
-    feddingLogsSub: Subscription;
+export class FeedingLogTimeSinceComponent implements OnInit, OnChanges {
 
-    optionsSub: Subscription;
+    @Input() feedingLog: FeedingLog
+
+    hours : number = 0;
+    minutes : number = 0;
+    
 
     constructor() {
+     
+
+    }
+
+    getLatestHours(){
+        if( this.feedingLog === undefined)
+        {
+            return 0;
+        }
+    }
+
+    ngOnChanges(changes: SimpleChanges) {
+        const change : SimpleChange = changes['feedingLog'];
+
+        var input = change.currentValue;
+
+        if(input == undefined){
+            return;
+        }
+
+
+        var newValue = input as FeedingLog;
+
+        var latestDate = newValue.time;
+
+        var startTime = moment(latestDate);
+        var endTime = moment();
+        var duration = moment.duration(endTime.diff(startTime));
+        var hours = duration.asHours();
+        this.hours = Math.floor(hours);
+        var minutes = duration.asMinutes() - this.hours * 60;
+
+
+        this.minutes = Math.round(minutes);
 
     }
 
     ngOnInit() {
 
-        const options = {
-            sort: { time: -1 }
-        };
-
-        this.feddingLogs = FeedingLogs.find({}, options).zone();
-        this.feddingLogsSub = MeteorObservable.subscribe('feedingLogs').subscribe();
-
-        this.feddingLogs.subscribe((x) => {
-
-            if (x.length > 0 && x[0]) {
-                var latestDate = x[0].time;
-
-
-
-                var startTime = moment(latestDate);
-                var endTime = moment();
-                var duration = moment.duration(endTime.diff(startTime));
-                var hours = duration.asHours();
-                var h = Math.floor(hours);
-                var minutes = duration.asMinutes() - h * 60;
-
-                
-                var m = Math.round(minutes);
-
-                this.feddingLogSub.next({hours: h, minutes : m});
-
-            }
-            
-
-            
-        });
-
-        this.feddingLog = this.feddingLogSub.asObservable();
-
 
     }
 
-
-
-    latestFeedingLog(): FeedingLog {
-        return this.feddingLogs[0];
-    }
-
-    ngOnDestroy() {
-        this.feddingLogsSub.unsubscribe();
-    }
 
 }

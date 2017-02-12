@@ -1,9 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 import * as moment from 'moment';
 
-import { FeedingLogs } from '../../../../both/collections/feedingLogs.collection'
+import { FeedingLog } from '../../../../both/models/feedingLog.model'
 
 import template from './feeding-log-form.component.html';
 
@@ -13,6 +13,9 @@ import template from './feeding-log-form.component.html';
     template
 })
 export class FeedingLogFormComponent {
+
+    @Output() add = new EventEmitter<FeedingLog>();
+
     addForm: FormGroup
 
     constructor(
@@ -60,8 +63,7 @@ export class FeedingLogFormComponent {
                 .hour(inputHour)
                 .minute(inputMinute)
                 .valueOf();
-
-            FeedingLogs.insert({ time: logDate, owner: Meteor.userId() });
+            
 
             var date = {
                 year: moment().year(),
@@ -74,12 +76,9 @@ export class FeedingLogFormComponent {
             };
 
             this.addForm.reset({ date: date, hour: time.hour, minute: time.minute});
+
+            this.add.emit({ time: logDate, owner: Meteor.userId() })
         }
 
     }
-
-    addLogEntry(): void {
-        FeedingLogs.insert({ time: Date.now() })
-    }
-
 }
